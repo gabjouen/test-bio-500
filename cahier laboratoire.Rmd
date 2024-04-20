@@ -1,0 +1,94 @@
+YAML
+---
+title: "Cahier de laboratoire"
+author: "Jouen / Rompré / Gagnon"
+date: "3/28/2024"
+output: html_document
+---
+
+--------------------------------------------------------------------------
+
+TEXTE
+
+1.Données
+
+Choix et type des données retenues:
+
+-	Date -> dates et heures (ANNEE-MOIS-JOUR)
+-	Site -> Chaine de caractères 
+-	Heure_obs -> dates et heures (hh : mm : ss)
+-	Fraction -> Nombres réels; cette variable servira seulement au calcul d'abondance 
+-	Nom_sci -> Chaine de caractères 
+-	Abondance -> entiers
+-	Largeur de rivière -> entiers
+-	Profondeur -> Nombres réels
+-	Vitesse_cour -> Nombre réels
+-	Transparence_eau -> Chaine de caractère 
+-	Température_eau -> Nombre réels
+
+Causes des données non-retenues:
+-	Date_obs -> Dates et heures (ANNEE-MOIS-JOUR); car cette variable est identique à la variable "date"
+-	Etiqstation -> Chaine de caractère; car nous n'avions pas assez de valeur pour en faire quelque chose de pertinent
+- Les autres variables contenaient que des NA donc nous ne les avons pas utilisés
+
+
+
+Questions biologiques potentielles :
+
+Relations entre les conditions environnementales et la structure du benthos :
+
+Comment la composition taxonomique du benthos est-elle influencée par la largeur, la profondeur et la vitesse du courant de la rivière ?
+Est-ce que la période d'échantillonnage influence la diversité et la  densité de benthos ?
+
+
+
+Explication dépendance de nos tar_target :
+
+
+- chemin_donnees : Cette target ne dépend d'aucune autre target. Elle sert à suivre le chemin du fichier de données.
+
+- commandes_sql : Cette target dépend de chemin_donnees. Elle utilise le chemin du fichier de données pour exécuter les commandes SQL.
+
+- donnees_combinees : Cette target dépend de commandes_sql. Elle utilise les résultats des commandes SQL pour combiner les données.
+
+- donnees_heure : Cette target dépend de donnees_combinees. Elle utilise les données combinées pour traiter les informations relatives aux heures.
+
+- donnees_nettoyees : Cette target dépend de donnees_heure. Elle utilise les données avec les heures traitées pour effectuer un nettoyage supplémentaire.
+
+- resultat_final : Cette target dépend de donnees_nettoyees. Elle utilise les données nettoyées pour exécuter le script principal et produire le résultat final.
+- table1, table2, table3, table4 : Ces targets dépendent également de donnees_nettoyees. Elles utilisent les données nettoyées pour générer les différentes tables
+
+--------------------------------------------------------------------------
+CODE CHUNK
+
+---
+title: "Projet X"
+author: "Justin Gagnon"
+date: "2024-03-31"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
